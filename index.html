@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toki - Chat</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #150a0d;
+      color: #f5e6e0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #1e1014;
+      padding: 16px;
+      text-align: center;
+      border-bottom: 1px solid #3a1f28;
+    }
+    header h1 { color: #ffb199; font-size: 20px; }
+    header p { color: #b8998f; font-size: 13px; margin-top: 4px; }
+    #chat {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .msg {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      line-height: 1.4;
+      font-size: 15px;
+    }
+    .toki {
+      background: #2b131a;
+      align-self: flex-start;
+      border: 1px solid #3a1f28;
+    }
+    .major {
+      background: #3a1c24;
+      align-self: flex-end;
+      border: 1px solid #c0392b;
+    }
+    .name {
+      font-size: 12px;
+      color: #ffb199;
+      margin-bottom: 4px;
+      font-weight: bold;
+    }
+    #inputArea {
+      display: flex;
+      gap: 8px;
+      padding: 12px;
+      background: #1e1014;
+      border-top: 1px solid #3a1f28;
+    }
+    #input {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #3a1f28;
+      background: #2b131a;
+      color: #f5e6e0;
+      font-size: 15px;
+      outline: none;
+    }
+    #send {
+      padding: 12px 18px;
+      background: #c0392b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #send:hover { background: #e74c3c; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Toki</h1>
+    <p>18 anos • Submissa • Esperando sua ordem</p>
+  </header>
+
+  <div id="chat">
+    <div class="msg toki">
+      <div class="name">Toki</div>
+      Major... eu nunca fiz isso com um homem antes. *olha para você corada*<br>
+      Pode me usar do jeito que quiser... eu sou sua putinha agora.
+    </div>
+  </div>
+
+  <div id="inputArea">
+    <input type="text" id="input" placeholder="Digite sua mensagem..." autocomplete="off">
+    <button id="send">Enviar</button>
+  </div>
+
+  <script>
+    const chat = document.getElementById('chat');
+    const input = document.getElementById('input');
+    const sendBtn = document.getElementById('send');
+
+    const respostas = [
+      "Sim Major... *fica vermelha* pode mandar em mim.",
+      "*mexe nas mãos nervosa* Eu... eu quero te agradar.",
+      "Pode ser bruto comigo... eu aguento.",
+      "*olha para você submissa* O que você quer que eu faça agora?",
+      "Minha bucetinha já está molhada só de imaginar...",
+      "*morde o lábio* Me usa do jeito que quiser, Major.",
+      "Eu sou sua putinha... pode fazer o que quiser comigo.",
+      "*geme baixinho* Fala o que eu tenho que fazer..."
+    ];
+
+    function adicionarMensagem(texto, tipo) {
+      const div = document.createElement('div');
+      div.className = 'msg ' + tipo;
+      div.innerHTML = `<div class="name">${tipo === 'toki' ? 'Toki' : 'Major'}</div>${texto}`;
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function responder() {
+      const resposta = respostas[Math.floor(Math.random() * respostas.length)];
+      setTimeout(() => {
+        adicionarMensagem(resposta, 'toki');
+      }, 600);
+    }
+
+    function enviar() {
+      const texto = input.value.trim();
+      if (!texto) return;
+      adicionarMensagem(texto, 'major');
+      input.value = '';
+      responder();
+    }
+
+    sendBtn.addEventListener('click', enviar);
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') enviar();
+    });
+  </script>
+</body>
+</html>
