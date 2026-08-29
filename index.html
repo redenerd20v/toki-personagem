@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Toki - Chat</title>
+  <title>Gerador Major - Chat</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -16,20 +16,45 @@
     }
     header {
       background: #1e1014;
-      padding: 14px 16px;
+      padding: 12px 16px;
+      border-bottom: 1px solid #3a1f28;
       text-align: center;
+    }
+    header h1 { color: #ffb199; font-size: 18px; }
+    header p { color: #b8998f; font-size: 12px; margin-top: 2px; }
+    .personagens {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding: 10px 12px;
+      background: #1a0d10;
       border-bottom: 1px solid #3a1f28;
     }
-    header h1 { color: #ffb199; font-size: 20px; }
-    header p { color: #b8998f; font-size: 13px; margin-top: 3px; }
-    .botoes {
+    .personagens button {
+      background: #2b131a;
+      color: #f5e6e0;
+      border: 1px solid #3a1f28;
+      padding: 6px 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-size: 13px;
+    }
+    .personagens button.ativo {
+      background: #3a1c24;
+      border-color: #c0392b;
+      color: #ffb199;
+    }
+    .acoes {
       display: flex;
       gap: 8px;
       justify-content: center;
-      margin-top: 10px;
+      padding: 8px;
       flex-wrap: wrap;
+      background: #1e1014;
+      border-bottom: 1px solid #3a1f28;
     }
-    .botoes button {
+    .acoes button {
       background: #2b131a;
       color: #ffb199;
       border: 1px solid #3a1f28;
@@ -38,7 +63,7 @@
       cursor: pointer;
       font-size: 13px;
     }
-    .botoes button:hover { background: #3a1c24; }
+    .acoes button:hover { background: #3a1c24; }
     #chat {
       flex: 1;
       overflow-y: auto;
@@ -54,12 +79,12 @@
       line-height: 1.45;
       font-size: 15px;
     }
-    .toki {
+    .bot {
       background: #2b131a;
       align-self: flex-start;
       border: 1px solid #3a1f28;
     }
-    .major {
+    .user {
       background: #3a1c24;
       align-self: flex-end;
       border: 1px solid #c0392b;
@@ -96,7 +121,6 @@
       cursor: pointer;
       font-weight: bold;
     }
-    #send:hover { background: #e74c3c; }
     .toast {
       position: fixed;
       bottom: 80px;
@@ -109,28 +133,24 @@
       border: 1px solid #3a1f28;
       display: none;
       z-index: 99;
-      max-width: 90%;
-      text-align: center;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Toki</h1>
-    <p>18 anos • Submissa • Esperando sua ordem</p>
-    <div class="botoes">
-      <button onclick="gerarPrompt()">📋 Gerar Prompt Explícito</button>
-      <button onclick="abrirProjeto()">🔥 Abrir Meu Projeto</button>
-    </div>
+    <h1>Gerador Major</h1>
+    <p>Escolha a personagem e mande a ordem</p>
   </header>
 
-  <div id="chat">
-    <div class="msg toki">
-      <div class="name">Toki</div>
-      Major... eu nunca fiz isso com um homem antes. *olha para você corada*<br>
-      Pode me usar do jeito que quiser... eu sou sua putinha agora.
-    </div>
+  <div class="personagens" id="listaPersonagens"></div>
+
+  <div class="acoes">
+    <button onclick="gerarPrompt()">📋 Gerar Prompt Explícito</button>
+    <button onclick="abrirImagem()">🖼️ Gerador de Imagem</button>
+    <button onclick="abrirProjeto()">🔥 Meu Projeto Perchance</button>
   </div>
+
+  <div id="chat"></div>
 
   <div id="inputArea">
     <input type="text" id="input" placeholder="Digite sua mensagem..." autocomplete="off">
@@ -140,80 +160,161 @@
   <div class="toast" id="toast">Prompt copiado!</div>
 
   <script>
+    const personagens = {
+      Toki: {
+        intro: "Major... eu nunca fiz isso com um homem antes. *olha corada* Pode me usar do jeito que quiser... eu sou sua putinha agora.",
+        respostas: [
+          "Sim Major... *fica vermelha* pode mandar em mim.",
+          "Minha bucetinha já está molhada só de imaginar...",
+          "*morde o lábio* Me usa do jeito que quiser.",
+          "Pode me mandar ficar de quatro... eu faço.",
+          "Eu sou sua putinha loira... pode fazer o que quiser."
+        ],
+        prompts: [
+          "Adult 18+. Toki, long blonde hair, blue eyes, slim body, naked, detailed breasts, wet virgin pussy, submissive, photorealistic explicit, 8k",
+          "Adult 18+. Toki on all fours, blonde hair, ass up, detailed pussy and anus, looking back, photorealistic explicit, 8k",
+          "Adult 18+. Toki naked, legs spread, fingers spreading virgin pussy, shy aroused expression, photorealistic explicit, 8k"
+        ]
+      },
+      Lari: {
+        intro: "Oi Major... já estava te esperando. *sorri safada* Manda que eu faço.",
+        respostas: [
+          "Pode ser grosso comigo, eu gosto.",
+          "*rebola* Quer que eu fique de quatro?",
+          "Manda ver Major... eu aguento.",
+          "Minha buceta já está pronta pra você.",
+          "Usa sua putinha do jeito que quiser."
+        ],
+        prompts: [
+          "Adult 18+. Lari, long black hair, light skin, big breasts, naked, detailed body, seductive, photorealistic explicit, 8k",
+          "Adult 18+. Lari on all fours, thick ass, detailed pussy, looking back, photorealistic explicit, 8k"
+        ]
+      },
+      Yasmin: {
+        intro: "Major... *voz baixa* pode me usar com força hoje.",
+        respostas: [
+          "Me fode do jeito que quiser...",
+          "*geme* Quero seu pau agora.",
+          "Pode arrombar, eu aguento.",
+          "Me trata que nem puta.",
+          "Goza dentro de mim, Major."
+        ],
+        prompts: [
+          "Adult 18+. Yasmin, dark skin, curly hair, thick ass, naked, detailed pussy, photorealistic explicit, 8k",
+          "Adult 18+. Yasmin doggy style, spreading ass, detailed anus, photorealistic explicit, 8k"
+        ]
+      },
+      Isabela: {
+        intro: "Major... *corada* eu ainda fico nervosa, mas quero muito.",
+        respostas: [
+          "Pode ir devagar no começo...",
+          "*treme* Tô molhada pra você.",
+          "Me usa... eu sou sua.",
+          "Quero sentir você dentro.",
+          "*geme baixinho* Mais forte..."
+        ],
+        prompts: [
+          "Adult 18+. Isabela, redhead with freckles, naked, detailed body, shy expression, photorealistic explicit, 8k",
+          "Adult 18+. Isabela legs spread, wet pussy, freckles, photorealistic explicit, 8k"
+        ]
+      },
+      Camila: {
+        intro: "M-major... *muito vermelha* eu nunca fiz isso ainda...",
+        respostas: [
+          "Tô com vergonha, mas pode continuar...",
+          "*voz baixa* Dói um pouco, mas eu quero.",
+          "Pode ser o primeiro...",
+          "*segura sua mão* Não para.",
+          "Eu sou sua... mesmo doendo."
+        ],
+        prompts: [
+          "Adult 18+. Camila, long blonde hair, blue eyes, small breasts, virgin pussy, shy expression, photorealistic explicit, 8k",
+          "Adult 18+. Camila naked, legs open, detailed virgin pussy, nervous look, photorealistic explicit, 8k"
+        ]
+      },
+      Helena: {
+        intro: "Major... mesmo sendo pecaminoso, eu não consigo resistir.",
+        respostas: [
+          "Perdoa meus pecados, mas me usa...",
+          "*voz doce* Pode fazer o que quiser comigo.",
+          "Eu não deveria... mas estou molhada.",
+          "Me castiga, Major.",
+          "Faz eu esquecer que sou religiosa."
+        ],
+        prompts: [
+          "Adult 18+. Helena, elegant woman, partially open clothes, seductive sinful expression, photorealistic explicit, 8k",
+          "Adult 18+. Helena naked, detailed body, guilty but aroused expression, photorealistic explicit, 8k"
+        ]
+      }
+    };
+
+    let atual = "Toki";
     const chat = document.getElementById('chat');
     const input = document.getElementById('input');
-    const sendBtn = document.getElementById('send');
+    const lista = document.getElementById('listaPersonagens');
     const toast = document.getElementById('toast');
 
-    const respostas = [
-      "Sim Major... *fica vermelha* pode mandar em mim.",
-      "*mexe nas mãos nervosa* Eu... eu quero te agradar.",
-      "Pode ser bruto comigo... eu aguento.",
-      "*olha para você submissa* O que você quer que eu faça agora?",
-      "Minha bucetinha já está molhada só de imaginar...",
-      "*morde o lábio* Me usa do jeito que quiser, Major.",
-      "Eu sou sua putinha... pode fazer o que quiser comigo.",
-      "*geme baixinho* Fala o que eu tenho que fazer...",
-      "Major... *abre um pouco as pernas* quer que eu mostre?",
-      "Pode me mandar ficar de quatro... eu faço.",
-      "*voz baixa e safada* Eu nunca tive um pau dentro de mim ainda...",
-      "Me trata que nem puta, Major... eu gosto.",
-      "*engole seco* Quero sentir você.",
-      "Pode gozar onde quiser em mim...",
-      "*olha para você com tesão* Estou toda molhada só de falar com você."
-    ];
+    function carregarPersonagens() {
+      Object.keys(personagens).forEach(nome => {
+        const btn = document.createElement('button');
+        btn.textContent = nome;
+        btn.onclick = () => selecionar(nome, btn);
+        if (nome === atual) btn.classList.add('ativo');
+        lista.appendChild(btn);
+      });
+    }
 
-    const prompts = [
-      "Adult 18+. Toki, long blonde hair, blue eyes, slim athletic body, completely naked, detailed medium firm breasts, hard nipples, submissive look, photorealistic explicit, 8k",
-      "Adult 18+. Toki, long blonde hair, naked, sitting with legs spread, detailed wet virgin pussy, fingers spreading, shy but aroused expression, photorealistic explicit, 8k",
-      "Adult 18+. Toki on all fours, long blonde hair, ass up, detailed round ass, visible anus and wet pussy, looking back submissively, photorealistic explicit, 8k",
-      "Adult 18+. Toki, naked, bent over spreading her ass cheeks with both hands, showing virgin pussy and asshole, needy expression, photorealistic explicit, 8k",
-      "Adult 18+. Toki on her knees, long blonde hair, looking up submissively, mouth slightly open, small to medium firm breasts visible, photorealistic explicit, 8k",
-      "Adult 18+. Toki lying on back, legs wide open, detailed wet virgin pussy, blushing and biting lip, photorealistic explicit, 8k",
-      "Adult 18+. Toki, reverse cowgirl position, long blonde hair, detailed ass and pussy visible, looking back, photorealistic explicit hardcore, 8k",
-      "Adult 18+. Toki completely naked, standing and presenting her body, hands behind back, submissive pose, detailed breasts and pussy, photorealistic explicit, 8k"
-    ];
+    function selecionar(nome, btn) {
+      atual = nome;
+      document.querySelectorAll('.personagens button').forEach(b => b.classList.remove('ativo'));
+      btn.classList.add('ativo');
+      chat.innerHTML = '';
+      adicionar(personagens[nome].intro, 'bot');
+    }
 
-    function adicionarMensagem(texto, tipo) {
+    function adicionar(texto, tipo) {
       const div = document.createElement('div');
       div.className = 'msg ' + tipo;
-      div.innerHTML = `<div class="name">${tipo === 'toki' ? 'Toki' : 'Major'}</div>${texto}`;
+      div.innerHTML = `<div class="name">${tipo === 'bot' ? atual : 'Major'}</div>${texto}`;
       chat.appendChild(div);
       chat.scrollTop = chat.scrollHeight;
     }
 
     function responder() {
-      const resposta = respostas[Math.floor(Math.random() * respostas.length)];
-      setTimeout(() => {
-        adicionarMensagem(resposta, 'toki');
-      }, 700);
+      const listaResp = personagens[atual].respostas;
+      const resp = listaResp[Math.floor(Math.random() * listaResp.length)];
+      setTimeout(() => adicionar(resp, 'bot'), 700);
     }
 
     function enviar() {
       const texto = input.value.trim();
       if (!texto) return;
-      adicionarMensagem(texto, 'major');
+      adicionar(texto, 'user');
       input.value = '';
       responder();
     }
 
     function gerarPrompt() {
-      const prompt = prompts[Math.floor(Math.random() * prompts.length)];
-      navigator.clipboard.writeText(prompt).then(() => {
-        toast.innerText = "Prompt explícito copiado!";
-        toast.style.display = 'block';
-        setTimeout(() => toast.style.display = 'none', 2200);
-      });
+      const listaP = personagens[atual].prompts;
+      const prompt = listaP[Math.floor(Math.random() * listaP.length)];
+      navigator.clipboard.writeText(prompt);
+      toast.style.display = 'block';
+      setTimeout(() => toast.style.display = 'none', 2000);
+    }
+
+    function abrirImagem() {
+      window.open('https://perchance.org/ai-text-to-image-generator', '_blank');
     }
 
     function abrirProjeto() {
       window.open('https://perchance.org/rel4eiwbg9', '_blank');
     }
 
-    sendBtn.addEventListener('click', enviar);
-    input.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') enviar();
-    });
+    document.getElementById('send').onclick = enviar;
+    input.addEventListener('keypress', e => { if (e.key === 'Enter') enviar(); });
+
+    carregarPersonagens();
+    adicionar(personagens[atual].intro, 'bot');
   </script>
 </body>
 </html>
