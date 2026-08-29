@@ -16,12 +16,29 @@
     }
     header {
       background: #1e1014;
-      padding: 16px;
+      padding: 14px 16px;
       text-align: center;
       border-bottom: 1px solid #3a1f28;
     }
     header h1 { color: #ffb199; font-size: 20px; }
-    header p { color: #b8998f; font-size: 13px; margin-top: 4px; }
+    header p { color: #b8998f; font-size: 13px; margin-top: 3px; }
+    .botoes {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
+    .botoes button {
+      background: #2b131a;
+      color: #ffb199;
+      border: 1px solid #3a1f28;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .botoes button:hover { background: #3a1c24; }
     #chat {
       flex: 1;
       overflow-y: auto;
@@ -34,7 +51,7 @@
       max-width: 85%;
       padding: 10px 14px;
       border-radius: 12px;
-      line-height: 1.4;
+      line-height: 1.45;
       font-size: 15px;
     }
     .toki {
@@ -80,12 +97,29 @@
       font-weight: bold;
     }
     #send:hover { background: #e74c3c; }
+    .toast {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2b131a;
+      color: #ffb199;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid #3a1f28;
+      display: none;
+      z-index: 99;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Toki</h1>
     <p>18 anos • Submissa • Esperando sua ordem</p>
+    <div class="botoes">
+      <button onclick="copiarPrompt()">📋 Copiar Prompt de Foto</button>
+      <button onclick="abrirPerchance()">🔥 Abrir Perchance</button>
+    </div>
   </header>
 
   <div id="chat">
@@ -101,10 +135,13 @@
     <button id="send">Enviar</button>
   </div>
 
+  <div class="toast" id="toast">Prompt copiado!</div>
+
   <script>
     const chat = document.getElementById('chat');
     const input = document.getElementById('input');
     const sendBtn = document.getElementById('send');
+    const toast = document.getElementById('toast');
 
     const respostas = [
       "Sim Major... *fica vermelha* pode mandar em mim.",
@@ -114,8 +151,17 @@
       "Minha bucetinha já está molhada só de imaginar...",
       "*morde o lábio* Me usa do jeito que quiser, Major.",
       "Eu sou sua putinha... pode fazer o que quiser comigo.",
-      "*geme baixinho* Fala o que eu tenho que fazer..."
+      "*geme baixinho* Fala o que eu tenho que fazer...",
+      "Major... *abre um pouco as pernas* quer que eu mostre?",
+      "Pode me mandar ficar de quatro... eu faço.",
+      "*voz baixa e safada* Eu nunca tive um pau dentro de mim ainda...",
+      "Me trata que nem puta, Major... eu gosto.",
+      "*engole seco* Quero sentir você.",
+      "Pode gozar onde quiser em mim...",
+      "*olha para você com tesão* Estou toda molhada só de falar com você."
     ];
+
+    const promptFoto = `Adult 18+. Toki, long flowing blonde hair, piercing blue eyes, slim athletic body, medium firm breasts, round perky ass, completely naked, detailed wet virgin pussy, submissive expression, looking at viewer, highly detailed photorealistic, explicit, 8k`;
 
     function adicionarMensagem(texto, tipo) {
       const div = document.createElement('div');
@@ -129,7 +175,7 @@
       const resposta = respostas[Math.floor(Math.random() * respostas.length)];
       setTimeout(() => {
         adicionarMensagem(resposta, 'toki');
-      }, 600);
+      }, 700);
     }
 
     function enviar() {
@@ -138,6 +184,17 @@
       adicionarMensagem(texto, 'major');
       input.value = '';
       responder();
+    }
+
+    function copiarPrompt() {
+      navigator.clipboard.writeText(promptFoto).then(() => {
+        toast.style.display = 'block';
+        setTimeout(() => toast.style.display = 'none', 2000);
+      });
+    }
+
+    function abrirPerchance() {
+      window.open('https://perchance.org/ai-chat', '_blank');
     }
 
     sendBtn.addEventListener('click', enviar);
