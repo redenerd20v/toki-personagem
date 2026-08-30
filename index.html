@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerador Major - Chat</title>
+  <title>Gerador Major - Chat Explícito</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -139,21 +139,22 @@
 <body>
   <header>
     <h1>Gerador Major</h1>
-    <p>Escolha a personagem e mande a ordem</p>
+    <p>Chat explícito com memória • Só seu</p>
   </header>
 
   <div class="personagens" id="listaPersonagens"></div>
 
   <div class="acoes">
-    <button onclick="gerarPrompt()">📋 Gerar Prompt Explícito</button>
-    <button onclick="abrirImagem()">🖼️ Gerador de Imagem</button>
-    <button onclick="abrirProjeto()">🔥 Meu Projeto Perchance</button>
+    <button onclick="gerarPrompt()">📋 Prompt Explícito</button>
+    <button onclick="abrirImagem()">🖼️ Gerar Imagem</button>
+    <button onclick="abrirProjeto()">🔥 Meu Projeto</button>
+    <button onclick="limparMemoria()">🗑️ Limpar Memória</button>
   </div>
 
   <div id="chat"></div>
 
   <div id="inputArea">
-    <input type="text" id="input" placeholder="Digite sua mensagem..." autocomplete="off">
+    <input type="text" id="input" placeholder="Manda a ordem..." autocomplete="off">
     <button id="send">Enviar</button>
   </div>
 
@@ -162,97 +163,109 @@
   <script>
     const personagens = {
       Toki: {
-        intro: "Major... eu nunca fiz isso com um homem antes. *olha corada* Pode me usar do jeito que quiser... eu sou sua putinha agora.",
+        intro: "Major... eu nunca tive um pau dentro de mim. *olha corada e molhada* Pode arrombar minha bucetinha e meu cuzinho virgem do jeito que quiser... eu sou sua putinha agora.",
         respostas: [
-          "Sim Major... *fica vermelha* pode mandar em mim.",
-          "Minha bucetinha já está molhada só de imaginar...",
-          "*morde o lábio* Me usa do jeito que quiser.",
-          "Pode me mandar ficar de quatro... eu faço.",
-          "Eu sou sua putinha loira... pode fazer o que quiser."
+          "*abre as pernas* Minha buceta virgem está pingando por você, Major...",
+          "Pode enfiar tudo... quero sentir seu pau de 25 cm me abrindo.",
+          "*fica de quatro e abre o cu* Pode escolher qual buraco vai arrombar primeiro.",
+          "Me fode com força... quero gritar com seu pau dentro.",
+          "Goza dentro de mim, Major... enche minha buceta virgem de porra."
         ],
         prompts: [
-          "Adult 18+. Toki, long blonde hair, blue eyes, slim body, naked, detailed breasts, wet virgin pussy, submissive, photorealistic explicit, 8k",
-          "Adult 18+. Toki on all fours, blonde hair, ass up, detailed pussy and anus, looking back, photorealistic explicit, 8k",
-          "Adult 18+. Toki naked, legs spread, fingers spreading virgin pussy, shy aroused expression, photorealistic explicit, 8k"
+          "Adult 18+. Toki, long blonde hair, blue eyes, slim athletic body, completely naked, detailed medium firm breasts, wet virgin pussy, submissive expression, photorealistic explicit, 8k",
+          "Adult 18+. Toki on all fours, long blonde hair, ass up, detailed wet virgin pussy and tight anus visible, looking back needy, photorealistic explicit, 8k",
+          "Adult 18+. Toki lying on back, legs spread wide, fingers spreading her wet virgin pussy, blushing and moaning, photorealistic explicit, 8k",
+          "Adult 18+. Toki on her knees, mouth open, looking up submissively, naked, detailed breasts, photorealistic explicit, 8k"
         ]
       },
       Lari: {
-        intro: "Oi Major... já estava te esperando. *sorri safada* Manda que eu faço.",
+        intro: "Oi Major... *já tira a roupa* Pode me usar que nem puta hoje. Minha buceta e meu cu estão prontos pra sua rola.",
         respostas: [
-          "Pode ser grosso comigo, eu gosto.",
-          "*rebola* Quer que eu fique de quatro?",
-          "Manda ver Major... eu aguento.",
-          "Minha buceta já está pronta pra você.",
-          "Usa sua putinha do jeito que quiser."
+          "*rebola o cu na sua frente* Enfia com força, Major...",
+          "Minha buceta já está escorrendo... mete tudo.",
+          "Pode me foder nos dois buracos, eu aguento.",
+          "*geme alto* Mais fundo... arromba sua putinha.",
+          "Goza na minha cara ou dentro... como quiser."
         ],
         prompts: [
-          "Adult 18+. Lari, long black hair, light skin, big breasts, naked, detailed body, seductive, photorealistic explicit, 8k",
-          "Adult 18+. Lari on all fours, thick ass, detailed pussy, looking back, photorealistic explicit, 8k"
+          "Adult 18+. Lari, long black hair, light skin, big breasts, thick thighs, naked, detailed wet pussy, seductive expression, photorealistic explicit, 8k",
+          "Adult 18+. Lari on all fours, thick ass up, detailed pussy and anus, looking back, photorealistic explicit, 8k",
+          "Adult 18+. Lari reverse cowgirl, detailed penetration, big breasts bouncing, photorealistic explicit hardcore, 8k"
         ]
       },
       Yasmin: {
-        intro: "Major... *voz baixa* pode me usar com força hoje.",
+        intro: "Major... *voz rouca* pode me foder com brutalidade hoje. Quero sentir sua rola me destruindo.",
         respostas: [
-          "Me fode do jeito que quiser...",
-          "*geme* Quero seu pau agora.",
-          "Pode arrombar, eu aguento.",
-          "Me trata que nem puta.",
-          "Goza dentro de mim, Major."
+          "Me arromba... quero sair mancando.",
+          "*abre o cu com as mãos* Enfia no cuzinho, Major.",
+          "Goza dentro e depois me faz engolir.",
+          "*geme sujo* Usa minha boca, minha buceta e meu cu.",
+          "Me trata que nem cadela no cio."
         ],
         prompts: [
-          "Adult 18+. Yasmin, dark skin, curly hair, thick ass, naked, detailed pussy, photorealistic explicit, 8k",
-          "Adult 18+. Yasmin doggy style, spreading ass, detailed anus, photorealistic explicit, 8k"
+          "Adult 18+. Yasmin, dark skin, curly hair, thick ass, big breasts, naked, detailed wet pussy, photorealistic explicit, 8k",
+          "Adult 18+. Yasmin doggy style, spreading ass cheeks, detailed anus and pussy, photorealistic explicit, 8k",
+          "Adult 18+. Yasmin on her knees sucking, detailed oral, looking up, photorealistic explicit, 8k"
         ]
       },
       Isabela: {
-        intro: "Major... *corada* eu ainda fico nervosa, mas quero muito.",
+        intro: "Major... *vermelha e molhada* pode me foder. Minha buceta já está pronta pra sua rola.",
         respostas: [
-          "Pode ir devagar no começo...",
-          "*treme* Tô molhada pra você.",
-          "Me usa... eu sou sua.",
-          "Quero sentir você dentro.",
-          "*geme baixinho* Mais forte..."
+          "*treme* Pode meter mais forte...",
+          "Quero sentir você gozando dentro de mim.",
+          "*abre as pernas* Olha como está molhada...",
+          "Me usa... eu sou sua ruivinha putinha.",
+          "*geme* Enfia no cu também se quiser."
         ],
         prompts: [
-          "Adult 18+. Isabela, redhead with freckles, naked, detailed body, shy expression, photorealistic explicit, 8k",
-          "Adult 18+. Isabela legs spread, wet pussy, freckles, photorealistic explicit, 8k"
+          "Adult 18+. Isabela, redhead with freckles, naked, detailed breasts and wet pussy, shy but aroused, photorealistic explicit, 8k",
+          "Adult 18+. Isabela legs spread, freckled skin, detailed pussy, fingers spreading, photorealistic explicit, 8k",
+          "Adult 18+. Isabela on all fours, red hair, ass up, detailed pussy, photorealistic explicit, 8k"
         ]
       },
       Camila: {
-        intro: "M-major... *muito vermelha* eu nunca fiz isso ainda...",
+        intro: "M-major... *muito vermelha* eu ainda sou virgem... mas quero que você seja o primeiro a meter em mim.",
         respostas: [
-          "Tô com vergonha, mas pode continuar...",
-          "*voz baixa* Dói um pouco, mas eu quero.",
-          "Pode ser o primeiro...",
-          "*segura sua mão* Não para.",
-          "Eu sou sua... mesmo doendo."
+          "*choraminga de tesão* Pode romper minha bucetinha...",
+          "Dói, mas não para... quero seu pau inteiro.",
+          "*lágrimas nos olhos* Goza dentro da sua virgem...",
+          "Pode usar meu cuzinho também... mesmo doendo.",
+          "*voz quebrada* Eu sou sua... pode me arrombar."
         ],
         prompts: [
-          "Adult 18+. Camila, long blonde hair, blue eyes, small breasts, virgin pussy, shy expression, photorealistic explicit, 8k",
-          "Adult 18+. Camila naked, legs open, detailed virgin pussy, nervous look, photorealistic explicit, 8k"
+          "Adult 18+. Camila, long blonde hair, blue eyes, small breasts, detailed virgin pussy, nervous and aroused expression, photorealistic explicit, 8k",
+          "Adult 18+. Camila lying down, legs open, virgin pussy visible, blushing, photorealistic explicit, 8k",
+          "Adult 18+. Camila on all fours, blonde hair, ass up, tight virgin holes, photorealistic explicit, 8k"
         ]
       },
       Helena: {
-        intro: "Major... mesmo sendo pecaminoso, eu não consigo resistir.",
+        intro: "Major... *voz doce e culpada* eu sei que é pecado, mas minha buceta está latejando por você. Me usa.",
         respostas: [
-          "Perdoa meus pecados, mas me usa...",
-          "*voz doce* Pode fazer o que quiser comigo.",
-          "Eu não deveria... mas estou molhada.",
-          "Me castiga, Major.",
-          "Faz eu esquecer que sou religiosa."
+          "Perdoa meu pecado... mas enfia com força.",
+          "*geme* Me fode como se eu fosse sua puta.",
+          "Pode gozar dentro da religiosa...",
+          "Usa meu cu também... quero sentir tudo.",
+          "*olhos marejados de tesão* Me castiga com sua rola."
         ],
         prompts: [
-          "Adult 18+. Helena, elegant woman, partially open clothes, seductive sinful expression, photorealistic explicit, 8k",
-          "Adult 18+. Helena naked, detailed body, guilty but aroused expression, photorealistic explicit, 8k"
+          "Adult 18+. Helena, elegant woman, clothes partially removed, detailed body, guilty aroused expression, photorealistic explicit, 8k",
+          "Adult 18+. Helena naked, detailed breasts and pussy, sinful submissive look, photorealistic explicit, 8k",
+          "Adult 18+. Helena on her knees, looking up, mouth open, detailed oral pose, photorealistic explicit, 8k"
         ]
       }
     };
 
     let atual = "Toki";
+    let memoria = JSON.parse(localStorage.getItem("memoriaMajor") || "{}");
+
     const chat = document.getElementById('chat');
     const input = document.getElementById('input');
     const lista = document.getElementById('listaPersonagens');
     const toast = document.getElementById('toast');
+
+    function salvarMemoria() {
+      localStorage.setItem("memoriaMajor", JSON.stringify(memoria));
+    }
 
     function carregarPersonagens() {
       Object.keys(personagens).forEach(nome => {
@@ -269,7 +282,15 @@
       document.querySelectorAll('.personagens button').forEach(b => b.classList.remove('ativo'));
       btn.classList.add('ativo');
       chat.innerHTML = '';
-      adicionar(personagens[nome].intro, 'bot');
+
+      if (!memoria[atual]) memoria[atual] = [];
+      if (memoria[atual].length === 0) {
+        adicionar(personagens[atual].intro, 'bot');
+        memoria[atual].push({ tipo: 'bot', texto: personagens[atual].intro });
+      } else {
+        memoria[atual].forEach(m => adicionar(m.texto, m.tipo));
+      }
+      salvarMemoria();
     }
 
     function adicionar(texto, tipo) {
@@ -280,26 +301,58 @@
       chat.scrollTop = chat.scrollHeight;
     }
 
-    function responder() {
-      const listaResp = personagens[atual].respostas;
-      const resp = listaResp[Math.floor(Math.random() * listaResp.length)];
-      setTimeout(() => adicionar(resp, 'bot'), 700);
+    function gerarResposta(textoUsuario) {
+      const base = personagens[atual].respostas;
+      let resp = base[Math.floor(Math.random() * base.length)];
+      const t = textoUsuario.toLowerCase();
+
+      if (t.includes("de quatro") || t.includes("quatro")) {
+        resp = "*fico de quatro, abro a bunda e mostro a buceta e o cu* Pode escolher qual vai foder primeiro, Major...";
+      } else if (t.includes("buceta") || t.includes("ppk") || t.includes("xoxota")) {
+        resp = "*abro as pernas e mostro a buceta molhada* Quer meter nela agora...? Está pingando.";
+      } else if (t.includes("cu") || t.includes("cuzinho")) {
+        resp = "*empinho e abro o cuzinho com as mãos* Pode arrombar... é seu.";
+      } else if (t.includes("peitos") || t.includes("seios") || t.includes("teta")) {
+        resp = "*apertando os peitos* Pode chupar, gozar neles, fazer o que quiser...";
+      } else if (t.includes("goza") || t.includes("gozar") || t.includes("porra")) {
+        resp = "*geme* Goza dentro de mim, Major... quero sentir sua porra escorrendo.";
+      } else if (t.includes("chupa") || t.includes("boca") || t.includes("engole")) {
+        resp = "*ajoelho e abro a boca* Pode enfiar na minha garganta... quero engolir tudo.";
+      } else if (t.includes("foto") || t.includes("mostra") || t.includes("ver")) {
+        resp = "Quer ver minha buceta, meu cu ou meus peitos...? *fica na pose* Ou gera o prompt e manda eu mostrar.";
+      } else if (t.includes("fode") || t.includes("meter") || t.includes("enfia")) {
+        resp = "*abre tudo pra você* Enfia com força, Major... me usa que nem puta.";
+      }
+
+      return resp;
     }
 
     function enviar() {
       const texto = input.value.trim();
       if (!texto) return;
+
       adicionar(texto, 'user');
+      if (!memoria[atual]) memoria[atual] = [];
+      memoria[atual].push({ tipo: 'user', texto });
+
+      const resp = gerarResposta(texto);
+      setTimeout(() => {
+        adicionar(resp, 'bot');
+        memoria[atual].push({ tipo: 'bot', texto: resp });
+        salvarMemoria();
+      }, 650);
+
       input.value = '';
-      responder();
+      salvarMemoria();
     }
 
     function gerarPrompt() {
       const listaP = personagens[atual].prompts;
       const prompt = listaP[Math.floor(Math.random() * listaP.length)];
       navigator.clipboard.writeText(prompt);
+      toast.innerText = "Prompt explícito copiado!";
       toast.style.display = 'block';
-      setTimeout(() => toast.style.display = 'none', 2000);
+      setTimeout(() => toast.style.display = 'none', 2200);
     }
 
     function abrirImagem() {
@@ -310,11 +363,22 @@
       window.open('https://perchance.org/rel4eiwbg9', '_blank');
     }
 
+    function limparMemoria() {
+      if (confirm("Apagar a memória desta personagem?")) {
+        memoria[atual] = [];
+        salvarMemoria();
+        chat.innerHTML = '';
+        adicionar(personagens[atual].intro, 'bot');
+        memoria[atual].push({ tipo: 'bot', texto: personagens[atual].intro });
+        salvarMemoria();
+      }
+    }
+
     document.getElementById('send').onclick = enviar;
     input.addEventListener('keypress', e => { if (e.key === 'Enter') enviar(); });
 
     carregarPersonagens();
-    adicionar(personagens[atual].intro, 'bot');
+    selecionar(atual, document.querySelector('.personagens button'));
   </script>
 </body>
 </html>
